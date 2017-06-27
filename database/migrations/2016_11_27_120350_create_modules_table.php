@@ -13,13 +13,15 @@ class CreateModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('core_modules', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->string('alias', 100)->unique();
-            $table->string('installed_version', 255)->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('core_modules')){
+            Schema::create('core_modules', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id');
+                $table->string('alias', 100)->unique();
+                $table->string('installed_version', 255)->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
